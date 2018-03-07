@@ -1,0 +1,16 @@
+[
+  {
+    "name": "swagger示例",
+    "href": "/swagger.html?path=petstore.json",
+    "api": [
+      "/swagger.html?path=petstore.json"
+    ]
+  },
+  {
+    "name": "swagger示例",
+    "href": "/swagger.html?path=petstore.yml",
+    "api": [
+      "/swagger.html?path=petstore.yml"
+    ]
+  }
+]
