@@ -6,7 +6,6 @@ import (
 	"io"
 	"html/template"
 	"os"
-	"path/filepath"
 	"flag"
 	"github.com/aiganbao/go-swagger/asset"
 )
@@ -132,16 +131,15 @@ func HandleFuncHttp(w http.ResponseWriter, r *http.Request) {
 func HandleHttp(w http.ResponseWriter, r *http.Request) {
 
 	HandleFuncHttp(w, r)
+
 	if r.URL.Path == "/" || r.URL.Path == "/index.html" {
 
-		f, err := os.Open(filepath.Join(".", "/swagger-ui/index.html"))
+		bytes, err := asset.Asset("swagger-ui/index.html")
 		if err != nil {
 			http.Redirect(w, r, "/", http.StatusMovedPermanently)
 			return
 		}
-		defer f.Close()
-
-		io.Copy(w, f)
+		w.Write(bytes)
 	}
 
 }
@@ -191,7 +189,7 @@ func main() {
 	go http.HandleFunc("/", HandleHttp)
 
 	flag.Parse()
-
+	log.Printf("Listening on %s  ", *addr)
 	log.Fatal(http.ListenAndServe(*addr, nil))
 
 }
