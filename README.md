@@ -14,10 +14,11 @@ go  get -u -v github.com/aiganbao/go-swagger
 
 
 ```bash
-go-swagger -h
-Usage of ./go-swagger:
+go-swagger -h:
   -a string
     	请输入服务端地址 (default ":8083")
+  -t string
+    	请输入服务端token值 (default "9a8ecfd2f0a1ea11fc577e40")
 ```
 
 
@@ -35,21 +36,21 @@ Usage of ./go-swagger:
 ```json
 [
   {
-    "name": "swagger示例",
-    "href": "/swagger.html?path=petstore.json",
-    "api": [
-      "/swagger.html?path=petstore.json"
-    ]
+    "name": "swagger文档管理",
+    "href": "/swagger.html?path=swagger.yml"
   },
   {
     "name": "swagger示例",
-    "href": "/swagger.html?path=petstore.yml",
-    "api": [
-      "/swagger.html?path=petstore.yml"
-    ]
+    "href": "/swagger.html?path=petstore.json"
+  },
+  {
+    "name": "swagger示例",
+    "href": "/swagger.html?path=petstore.yml"
   }
 ]
 ```
+
+
 
 2. 启动服务`go-swagger`
  
@@ -58,6 +59,11 @@ Usage of ./go-swagger:
 http://127.0.0.1:8083/
 
 ```
+
+3. 也可以通过后台管理接口上传swagger文件
+
+![img](img/upload.png)
+
 
 
 ### 效果图如下:

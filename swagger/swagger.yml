@@ -1,0 +1,76 @@
+swagger: '2.0'
+info:
+  version: "1.0.0"
+  description: "swagger文档管理"
+  title: "swagger文档管理"
+host: '127.0.0.1:8083'
+produces:
+  - "application/json"
+schemes:
+  - http
+  - https
+securityDefinitions:
+  token:
+    type: apiKey
+    name: token
+    in: header
+basePath: /v1
+paths:
+  /swagger/upload:
+    post:
+      tags:
+       - "swagger文件上传"
+      summary: 'swagger文件上传'
+      description: 'swagger文件上传'
+      operationId: "swagger"
+      parameters:
+        - description: '服务名称'
+          in: "query"
+          name: "serviceName"
+          required: true
+          type: "string"
+        - description: 'swagger上传文件'
+          in: "formData"
+          name: "file"
+          required: true
+          type: "file"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ApiReponse"
+        '201':
+          description: "Created"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '404':
+          description: "Not Found"
+      schemes:
+      - http
+      - https
+      security:
+      - token: []
+definitions:
+  ApiReponse:
+    description: "返回体"
+    example:
+      code: 200
+      msg: "上传的文件成功"
+    properties:
+      code:
+        description: "响应状态码"
+        example: 200
+        type: integer
+      msg:
+        description: "响应错误说明"
+        example: '上传的文件成功'
+        type: "string"
+    required:
+      - ok
+    type: object
