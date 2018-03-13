@@ -226,6 +226,17 @@ var (
 func main() {
 
 	flag.Parse()
+	ADDR := os.Getenv("ADDR")
+
+	if ADDR != "" {
+		addr = &ADDR
+	}
+
+	TOKEN := os.Getenv("TOKEN")
+	if TOKEN != "" {
+		token = &TOKEN
+	}
+
 	log.Printf("Listening on %s  ", *addr)
 
 	http.HandleFunc("/swagger-ui/", handleProxy(http.StripPrefix("/swagger-ui/", http.FileServer(&asset.AssetFs))))
