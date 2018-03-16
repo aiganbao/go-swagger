@@ -29,11 +29,30 @@ func renderhtml(filename string, out io.Writer) error {
 	return template.Must(template.New("markdown").Parse(string(bytes))).Execute(out, m)
 }
 
+func hasSuffix(url string, prefix []string) bool {
+
+	for _, p := range prefix {
+		if strings.HasSuffix(url, p) {
+			return true
+		}
+	}
+	return false
+}
+
 func handleFuncHttp(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Cache-Control", "no-cache, no-store, must-revalidate")
-	w.Header().Add("Pragma", "no-cache")
-	w.Header().Add("Expires", "0")
+
+	if hasSuffix(r.URL.Path, []string{".jpg", ".css", ".png", ".png", ".js", ".gif"}) {
+		w.Header().Add("Cache-Control", "max-age=604800, must-revalidate")
+		w.Header().Add("Pragma", "public")
+
+	} else {
+		w.Header().Add("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Add("Pragma", "no-cache")
+		w.Header().Add("Expires", "0")
+	}
+
 }
 
 func handleHttp(w http.ResponseWriter, r *http.Request) {
